@@ -1,0 +1,52 @@
+<!-- views/home.handlebars -->
+<h1>
+  To-Do App
+</h1>
+<ul>
+  {{#if empty}}
+    No Todos found.
+  {{/if}}
+  {{#each todos}}
+  <li>
+    <p>{{title}}</p>
+    <button class="delete-btn" type="button" data-id="{{_id}}">x</button>
+  </li>
+  {{/each}}
+</ul>
+
+<form action="/add" method="post">
+  <input type="text" name="title" placeholder="todo">
+  <input type="submit" name="add" value="Add Todo">
+</form>
+
+<script>
+  function deleteTodo(id) {
+    // place a requests to delete todo with id
+    console.log("Deleting todo ",id);
+
+    // prepare the request
+    const req = new Request('/delete',{
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      })
+    });
+
+    // send the request
+    fetch(req,{
+      method: 'POST',
+      body: JSON.stringify({
+        "id": id, // id of the todo to be deleted
+      })
+    }).then(function(res) {
+      setTimeout(() => {location.reload();},600); // reload the page after request
+    });
+  }
+
+  var btns = document.getElementsByClassName("delete-btn");
+  Array.from(btns).forEach((element) => { // attach onclick listeners to all the todo delete buttons
+    element.addEventListener('click',(e) => {
+      console.log("Clicked!",e.target.getAttribute("data-id"));
+      deleteTodo(e.target.getAttribute("data-id"));
+    });
+  });
+</script>
