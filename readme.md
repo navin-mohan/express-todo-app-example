@@ -87,7 +87,7 @@ For convenience, let's use a [cloud](https://www.coderew.com/tech/computers/clou
 Hit Confirm and Deploy. It'll take a few minutes.
 
 Once that is complete, click on connect and grab the **URI Connection String**. Also set the IP whitelist to **ACCESS FROM ANYWHERE**(not recommended in production environment).
-[mongodb-connect](images/mongodb-connect.png)
+![mongodb-connect](images/mongodb-connect.png)
 
 We also need to install mongodb so that Express can access it. So let's do that
 ```bash
